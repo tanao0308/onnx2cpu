@@ -2,33 +2,29 @@ include_directories(${PROJECT_SOURCE_DIR}/include)
 
 add_executable(demo main.cpp func.cpp)
 
+# 测试添加 ONNX Target 并链接到本项目
 find_package(utf8_range REQUIRED)
 find_package(absl REQUIRED)
 find_package(LLVM REQUIRED)
 find_package(MLIR REQUIRED)
 find_package(ONNX REQUIRED)
 if(TARGET ONNX::onnx)
-    message(STATUS "Exist target ONNX::onnx!")
+    message(STATUS "Exist target ONNX::onnx")
 endif()
 if(TARGET ONNX::onnx_proto)
-    message(STATUS "Exist target ONNX::onnx_proto!")
+    message(STATUS "Exist target ONNX::onnx_proto")
 endif()
 message(STATUS "ONNX include directories: ${ONNX_INCLUDE_DIRS}")
-message(STATUS ">>> ${ONNX_LIBS} || ${ONNX_VERSION} || ${ONNX_DIR} || ${ONNX}")
-# include_directories(${LLVM_INCLUDE_DIRS})
-# target_link_libraries(demo ${LLVM_LIBRARIES})
+message(STATUS "ONNX Version: ${ONNX_VERSION}, ONNX Position: ${ONNX_DIR}")
 
 target_include_directories(demo PRIVATE ${ONNX_INCLUDE_DIRS})
 target_link_libraries(demo PRIVATE ONNX::onnx ONNX::onnx_proto)
 
-################################################################
 
+# 添加 onnx-mlir 的 compiler 静态库
 add_library(OnnxMlirCompiler STATIC IMPORTED)
 set_target_properties(OnnxMlirCompiler PROPERTIES
     IMPORTED_LOCATION "/usr/local/lib/libOMCompiler.a"  # .a 文件的路径
 )
-# target_link_libraries(libOMCompiler PRIVATE LLVM)
+# target_link_libraries(libOMCompiler PRIVATE LLVM) # TODO 为静态库配置依赖
 target_link_libraries(demo PRIVATE OnnxMlirCompiler)
-
-get_target_property(ONNX_LINK_LIBRARIES ONNX::onnx INTERFACE_LINK_LIBRARIES)
-message(STATUS "${ONNX_LINK_LIBRARIES} || ${INTERFACE_LINK_LIBRARIES}")
