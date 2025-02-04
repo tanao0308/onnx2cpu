@@ -1,8 +1,0 @@
-digraph "ONNX::onnx" {
-node [
-  fontsize = "12"
-];
-    "node1" [ label = "ONNX::onnx", shape = octagon ];
-    "node0" [ label = "demo", shape = egg ];
-    "node0" -> "node1" [ style = dotted ] // demo -> ONNX::onnx
-}

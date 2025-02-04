@@ -39,6 +39,7 @@
         CMAKE_INSTALL_PREFIX	make install 目标的默认安装路径（通常是 /usr/local 或 C:/Program Files/）。
         CMAKE_PREFIX_PATH	额外的库搜索路径（常用于 find_package()）。
         CMAKE_MODULE_PATH	额外的 CMake 模块搜索路径。
+
 #### 函数 和 功能
     CMake 基本函数
     set(): 设置变量的值。
@@ -59,5 +60,8 @@
     link_directories(): 指定一个或多个目录来搜索库文件。
         link_directories(${PROJECT_BINARY_DIR}/lib)
 
-
-
+#### 绘制依赖图
+```
+cd build/
+cmake --graphviz=cmake_graphs/graph.dot ..
+```

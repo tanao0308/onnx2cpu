@@ -27,7 +27,7 @@ add_library(OnnxMlirCompiler STATIC IMPORTED)
 set_target_properties(OnnxMlirCompiler PROPERTIES
     IMPORTED_LOCATION "/usr/local/lib/libOMCompiler.a"  # .a 文件的路径
 )
-target_link_libraries(libOMCompiler PRIVATE LLVM)
+# target_link_libraries(libOMCompiler PRIVATE LLVM)
 target_link_libraries(demo PRIVATE OnnxMlirCompiler)
 
 get_target_property(ONNX_LINK_LIBRARIES ONNX::onnx INTERFACE_LINK_LIBRARIES)
