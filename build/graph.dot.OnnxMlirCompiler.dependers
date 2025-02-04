@@ -1,0 +1,8 @@
+digraph "OnnxMlirCompiler" {
+node [
+  fontsize = "12"
+];
+    "node6" [ label = "OnnxMlirCompiler", shape = octagon ];
+    "node0" [ label = "demo", shape = egg ];
+    "node0" -> "node6" [ style = dotted ] // demo -> OnnxMlirCompiler
+}

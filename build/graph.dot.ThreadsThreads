@@ -1,0 +1,8 @@
+digraph "Threads::Threads" {
+node [
+  fontsize = "12"
+];
+    "node4" [ label = "Threads::Threads", shape = pentagon ];
+    "node5" [ label = "-lpthread", shape = septagon ];
+    "node4" -> "node5" [ style = dashed ] // Threads::Threads -> -lpthread
+}

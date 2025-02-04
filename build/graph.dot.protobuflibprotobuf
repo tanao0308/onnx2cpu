@@ -1,0 +1,10 @@
+digraph "protobuf::libprotobuf" {
+node [
+  fontsize = "12"
+];
+    "node3" [ label = "protobuf::libprotobuf", shape = septagon ];
+    "node4" [ label = "Threads::Threads", shape = pentagon ];
+    "node3" -> "node4" [ style = dashed ] // protobuf::libprotobuf -> Threads::Threads
+    "node5" [ label = "-lpthread", shape = septagon ];
+    "node4" -> "node5" [ style = dashed ] // Threads::Threads -> -lpthread
+}

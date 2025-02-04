@@ -1,0 +1,12 @@
+digraph "ONNX::onnx_proto" {
+node [
+  fontsize = "12"
+];
+    "node2" [ label = "ONNX::onnx_proto", shape = octagon ];
+    "node3" [ label = "protobuf::libprotobuf", shape = septagon ];
+    "node2" -> "node3" [ style = dashed ] // ONNX::onnx_proto -> protobuf::libprotobuf
+    "node4" [ label = "Threads::Threads", shape = pentagon ];
+    "node3" -> "node4" [ style = dashed ] // protobuf::libprotobuf -> Threads::Threads
+    "node5" [ label = "-lpthread", shape = septagon ];
+    "node4" -> "node5" [ style = dashed ] // Threads::Threads -> -lpthread
+}
