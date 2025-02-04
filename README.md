@@ -64,4 +64,6 @@
 ```
 cd build/
 cmake --graphviz=cmake_graphs/graph.dot ..
+cd cmake_graphs/
+dot -Tpng graph.dot -o graph.png
 ```
