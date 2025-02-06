@@ -1,6 +1,44 @@
-## 
-### 学习 CMake
-#### CMake 自动设置变量
+## 学习 CMake
+### 函数 和 功能
+    CMake 基本函数
+    set(): 设置变量的值。
+        set(MY_VARIABLE "Some Value")
+    project(): 定义项目的名称和使用的语言。
+        project(MyProject VERSION 1.0 LANGUAGES CXX)
+        VERSION：指定项目版本。
+        LANGUAGES：指定支持的语言（如 CXX、C、CUDA 等）。
+    add_executable(): 添加一个可执行文件目标。（之后的所有源文件只能有一个 main 函数）
+        add_executable(MyApp src/main.cpp)
+    add_library(): 添加一个库文件目标，可以是静态库或动态库。
+        add_library(MyLibrary STATIC src/my_library.cpp)
+        STATIC、SHARED、MODULE：指定库的类型。
+    include_directories(): 指定一个或多个目录来包含头文件。（用来定义头文件位置）
+        include_directories(${PROJECT_SOURCE_DIR}/include)
+    target_link_libraries(): 将目标与一个或多个库链接。
+        target_link_libraries(MyApp MyLibrary)
+    link_directories(): 指定一个或多个目录来搜索库文件。
+        link_directories(${PROJECT_BINARY_DIR}/lib)
+
+### find_package()
+    常用语句：find_package(XXX REQUIRED CONFIG):
+        表示试图在系统中的特定路径寻找 XXXConfig.cmake 或 XXX-config.cmake 文件
+        若找到文件，则执行其中的 CMake 代码，此类代码通常会生成若干变量如库目录、头文件目录等
+        为了确定找到的 .cmake 文件的位置，使用 cmake --debug-find . 对 find_package 找到的文件路径进行输出
+
+### include()
+    常用语句：include(XXX):
+        会递归查找 CMAKE_MODULE_PATH 变量的文件夹下是否存在 XXX.cmake 文件，若存在则立刻执行里面的代码
+        在使用之前需要配置 CMAKE_MODULE_PATH 变量
+
+### 绘制依赖图
+```
+cd build/
+cmake --graphviz=cmake_graphs/graph.dot ..
+cd cmake_graphs/
+dot -Tpng graph.dot -o graph.png
+```
+
+### CMake 自动设置变量
     CMake 输出变量的值
         message(STATUS "ONNX include directories: ${ONNX_INCLUDE_DIRS}")
     CMake 提供了许多自动设置的变量
@@ -39,31 +77,3 @@
         CMAKE_INSTALL_PREFIX	make install 目标的默认安装路径（通常是 /usr/local 或 C:/Program Files/）。
         CMAKE_PREFIX_PATH	额外的库搜索路径（常用于 find_package()）。
         CMAKE_MODULE_PATH	额外的 CMake 模块搜索路径。
-
-#### 函数 和 功能
-    CMake 基本函数
-    set(): 设置变量的值。
-        set(MY_VARIABLE "Some Value")
-    project(): 定义项目的名称和使用的语言。
-        project(MyProject VERSION 1.0 LANGUAGES CXX)
-        VERSION：指定项目版本。
-        LANGUAGES：指定支持的语言（如 CXX、C、CUDA 等）。
-    add_executable(): 添加一个可执行文件目标。（之后的所有源文件只能有一个 main 函数）
-        add_executable(MyApp src/main.cpp)
-    add_library(): 添加一个库文件目标，可以是静态库或动态库。
-        add_library(MyLibrary STATIC src/my_library.cpp)
-        STATIC、SHARED、MODULE：指定库的类型。
-    include_directories(): 指定一个或多个目录来包含头文件。（用来定义头文件位置）
-        include_directories(${PROJECT_SOURCE_DIR}/include)
-    target_link_libraries(): 将目标与一个或多个库链接。
-        target_link_libraries(MyApp MyLibrary)
-    link_directories(): 指定一个或多个目录来搜索库文件。
-        link_directories(${PROJECT_BINARY_DIR}/lib)
-
-#### 绘制依赖图
-```
-cd build/
-cmake --graphviz=cmake_graphs/graph.dot ..
-cd cmake_graphs/
-dot -Tpng graph.dot -o graph.png
-```

@@ -2,12 +2,14 @@ include_directories(${PROJECT_SOURCE_DIR}/include)
 
 add_executable(demo main.cpp func.cpp)
 
+
 # 测试添加 ONNX Target 并链接到本项目
-find_package(utf8_range REQUIRED)
-find_package(absl REQUIRED)
-find_package(LLVM REQUIRED)
-find_package(MLIR REQUIRED)
-find_package(ONNX REQUIRED)
+find_package(utf8_range REQUIRED CONFIG)
+find_package(absl REQUIRED CONFIG)
+find_package(LLVM REQUIRED CONFIG)
+find_package(MLIR REQUIRED CONFIG)
+find_package(ONNX REQUIRED CONFIG)
+message("aaaa${CMAKE_MODULE_PATH}")
 if(TARGET ONNX::onnx)
     message(STATUS "Exist target ONNX::onnx")
 endif()
